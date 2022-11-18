@@ -4,39 +4,77 @@ namespace App\Http\Livewire;
 
 use App\Models\Task;
 use App\Models\TaskList;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class ToDoList extends Component
 {
-    public function addTaskList()
+    public $title;
+    public $addTaskListState = false;
+    public $addTaskState = '';
+    protected $rules = [
+        'title' => 'required',
+    ];
+
+    public function addTaskList(): void
     {
-        TaskList::create([
-            'title' => uniqid(),
-        ]);
+        $this->addTaskListState = true;
     }
 
-    public function addTask(int $id)
+    public function addTask(int $taskListId): void
     {
-        Task::create([
-            'task_list_id' => $id,
-            'title' => uniqid(),
-        ]);
+        $this->addTaskState = $taskListId;
     }
     
-    public function deleteTaskList(int $id)
+    public function deleteTaskList(int $id): void
     {
         TaskList::destroy($id);
     }
 
-    public function deleteTask(int $id)
+    public function deleteTask(int $id): void
     {
         Task::destroy($id);
     }
 
-    public function render()
+    public function sorting($order): void
+    {
+        foreach ($order as $taskList) {
+            TaskList::query()->where([
+                'id' => $taskList['value']
+            ])->update([
+                'sort' => $taskList['order']
+            ]);
+
+            if (isset($taskList['items'])) {
+                foreach ($taskList['items'] as $task) {
+                    Task::query()->where([
+                        'id' => $task['value']
+                    ])->update([
+                        'sort' => $task['order']
+                    ]);
+                }
+            }
+        }
+    }
+
+    public function save()
+    {
+        $data = $this->validate();
+
+        if ($this->addTaskListState) {
+            TaskList::create($data);
+        } else {
+            $data['task_list_id'] = $this->addTaskState;
+            Task::create($data);
+        }
+
+        $this->reset();
+    }
+
+    public function render(): View
     {
         $taskLists = TaskList::orderBy('sort')->get();
-        
+
         return view('livewire.to-do-list', compact('taskLists'));
     }
 }

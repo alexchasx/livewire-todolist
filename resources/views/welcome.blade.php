@@ -13,6 +13,8 @@
     </head>
     <body class="antialiased">
         
+    @livewire('trello')
+
     @livewireScripts
 
     </body>

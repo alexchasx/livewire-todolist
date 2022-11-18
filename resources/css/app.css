@@ -1,11 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.text-white {
-    color: red;
-}
-
-button, [type='button'], [type='reset'], [type='submit'] {
-    background-color: rgb(168, 163, 163);
-}

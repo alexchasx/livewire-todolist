@@ -74,7 +74,7 @@
                     <input wire:model.defer='title' type="text" class="@error('title') border-red @enderror">
                 </form>            
             @else          
-                <button wire:click="addTask({{ $taskList->id }})" class="mt-3 text-grey-dark cursor-pointer">{{ __('Add a task...')}}</button>
+                <button wire:click="addTask({{ $taskList->id }})" class="cursor-pointer bg-blue-light rounded h-8 font-bold text-white text-sm m-2 p-2 pr-10 pl-10">{{ __('Add a task...')}}</button>
             @endif
                 
             </div>

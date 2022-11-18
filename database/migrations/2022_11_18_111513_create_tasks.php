@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            
+            $table->foreignId('task_list_id')->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
             $table->string('title');
             $table->integer('sort')->default(999);
             $table->timestamps();
@@ -28,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('tasks');
     }
 };

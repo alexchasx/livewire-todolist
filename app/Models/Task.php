@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Card extends Model
+class Task extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'group_id',
+        'task_list_id',
         'title',
         'sort',
     ];
 
-    public function group(): BelongsTo
+    public function taskList(): BelongsTo
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsTo(TaskList::class);
     }
 }

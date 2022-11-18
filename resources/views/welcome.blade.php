@@ -13,7 +13,7 @@
     </head>
     <body class="antialiased">
         
-    @livewire('trello')
+    @livewire('to-do-list')
 
     @livewireScripts
 

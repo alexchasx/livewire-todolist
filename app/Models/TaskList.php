@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Group extends Model
+class TaskList extends Model
 {
     use HasFactory;
 
@@ -15,8 +15,8 @@ class Group extends Model
         'sort',
     ];
 
-    public function cards(): HasMany
+    public function tasks(): HasMany
     {
-        return $this->hasMany(Card::class)->orderBy('sort');
+        return $this->hasMany(Task::class)->orderBy('sort');
     }
 }
